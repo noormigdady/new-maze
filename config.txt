@@ -1,0 +1,7 @@
+width=50
+height=25
+entry=0, 0
+exit=24, 49
+output_file=maze.txt
+perfect=false
+#this isn't supposed to do anyting  
