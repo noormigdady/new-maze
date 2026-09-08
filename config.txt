@@ -4,4 +4,5 @@ entry=0, 0
 exit=24, 49
 output_file=maze.txt
 perfect=false
+seed=42
 #this isn't supposed to do anyting  

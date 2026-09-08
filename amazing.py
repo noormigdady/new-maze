@@ -86,15 +86,16 @@ def produce(config: dict[str, Any]) -> list[list[Cell]]:
     try:
         height = config["HEIGHT"]
         width = config["WIDTH"]
+        seed = config["SEED"]
         grid = MazeGenerator(height, width)
         lock_42(grid.grid, height, width)
         i, j = config["ENTRY"]
         x, y = config["EXIT"]
         if grid.grid[i][j].locked or grid.grid[x][y].locked:
             raise Exception("ENTRY/EXIT cannot be in 42 logo")
-        maze = grid.generator(config["ENTRY"])
+        maze = grid.generator(config["ENTRY"], seed)
         if not config["PERFECT"]:
-            imperfecter(maze, height, width)
+            imperfecter(maze, height, width, seed)
         path = shortest_path(maze, maze[i][j], maze[x][y])
         maze_in_hex(maze, height, width, (i, j), (x, y),
                     path, config["OUTPUT_FILE"])

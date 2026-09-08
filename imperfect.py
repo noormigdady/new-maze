@@ -6,10 +6,10 @@ def Next_cell(maze: list[list[Cell]], cell: Cell, wall: str) -> Cell:
 
     """
         Finds the next for a given cell in a given direction
-    
+
         Args -> cell: [Cell]
                 direction: [str]
-    
+
         Return -> retuns the next cell [Cell]
     """
 
@@ -51,6 +51,7 @@ def remove_wall(
         maze: list[list[Cell]],
         height: int,
         width: int,
+        seed: int | None,
         cell: Cell
         ) -> None:
 
@@ -58,8 +59,9 @@ def remove_wall(
         For the given cell it breaks a breakable wall.
 
         The following rules determine whether a wall is breakable wall or not:
-        - a wall should exist (an already broken wall can't be broken, but a broken heart can !)
-        - a wall cannot be a maze boundary 
+        - a wall should exist
+         (an already broken wall can't be broken, but a broken heart can❗)
+        - a wall cannot be a maze boundary
         - the current cell should be not of the 42 logo cells
 
         Args -> maze: list[list[Cell]]
@@ -68,7 +70,6 @@ def remove_wall(
                 cell: Cell
         Return -> None
     """
-
 
     walls = ["top", "bottom", "right", "left"]
     if cell.locked:
@@ -109,7 +110,12 @@ def remove_wall(
         next_cell.right = False
 
 
-def imperfecter(maze: list[list[Cell]], height: int, width: int) -> None:
+def imperfecter(
+        maze: list[list[Cell]],
+        height: int,
+        width: int,
+        seed: int | None
+        ) -> None:
 
     """
         turnes a generated perfect maze into an imperfect one
@@ -122,4 +128,4 @@ def imperfecter(maze: list[list[Cell]], height: int, width: int) -> None:
 
     for row in maze:
         for cell in row:
-            remove_wall(maze, height, width, cell)
+            remove_wall(maze, height, width, seed, cell)

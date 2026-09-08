@@ -3,25 +3,7 @@ from typing import Any
 
 
 class DuplicateKey(Exception):
-
-    """
-        A class that handles duplicate keys
-
-        Args -> key: The key associated with the duplicate value.
-
-        Return -> None
-    """
-
     def __init__(self, key: str) -> None:
-
-        """
-            The DuplicateKey class initializer
-
-            Args -> key: The key associated with the duplicate value.
-
-            Return -> None
-        """
-
         super().__init__(f"Duplicate value for {key}, already exists")
 
 
@@ -30,18 +12,6 @@ def check_points(Entry: tuple[int, int],
                  width: int,
                  height: int,
                  file: str) -> None:
-
-    """
-        Checks that the Entry an Exit cells are following
-        the boundries set:
-        - Entry and Exit cells are inside the maze borders
-        - Entry and Exit cells are not the same [The should be different]
-
-        Args -> Entry and Exit cells [Cell], Width and Height [int], file name [str]
-
-        Return -> None
-    """
-
     x, y = Entry
     i, j = Exit
     if not (0 <= x < height and 0 <= y < width):
@@ -55,23 +25,6 @@ def check_points(Entry: tuple[int, int],
 
 
 def config_parser(file: str) -> dict[str, Any]:
-
-    """
-        Parses and validates the confniguration file values:
-        - Checks that all manadtory keys exist and have values
-        - Checks that the keys and values are in the right format:
-          [KEY=VALUE]
-        - Checks the values assigned to the keys are in the right format
-        - Ignores comments (lines strats with #)
-        - Checks for duplicate values assigned for a single key
-
-        Args -> configuration file name [str]
-
-        Return -> Returns a dictionary of the final parsed vlaues to be used,
-                  where the key is a string and the key is [int , str, etc..]
-                  [dict[str, Any]]
-    """
-
     required = ["HEIGHT", "WIDTH", "ENTRY", "EXIT", "PERFECT", "OUTPUT_FILE"]
     config: dict[str, Any] = {}
     with open(file, "r") as f:
@@ -79,10 +32,10 @@ def config_parser(file: str) -> dict[str, Any]:
             if line.startswith("#"):
                 continue
             lst = line.split("=")
+            if len(lst) != 2:
+                raise Exception("Invalid format, must be KEY=VALUE")
             lst[0] = lst[0].lower().strip()
             lst[1] = lst[1].strip()
-            if len(lst) != 2:
-                raise Exception("Invalid formate, must be KEY=VALUE")
             if lst[0] in ["width", "height"]:
                 if lst[0].upper() in config:
                     raise DuplicateKey(lst[0].upper())
@@ -118,15 +71,18 @@ def config_parser(file: str) -> dict[str, Any]:
                 if not lst[1].endswith(".txt"):
                     raise Exception("Invalid extention, must be .txt")
                 config["OUTPUT_FILE"] = lst[1]
-            if lst[0] == "SEED":
+            if lst[0] == "seed":
                 try:
-                    config["SEED"] = int(lst[1])
+                    seed = int(lst[1])
+                    config["SEED"] = seed
                 except Exception:
                     print("Invalid value for SEED, must be an integer")
                     sys.exit(1)
         for item in required:
             if item not in config:
                 raise Exception(f"MISSING {item}, Modify your config.txt")
+        if "SEED" not in config:
+            config["SEED"] = None
         try:
             check_points(config["ENTRY"], config["EXIT"],
                          config["WIDTH"], config["HEIGHT"], file)

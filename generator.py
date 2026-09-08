@@ -59,7 +59,7 @@ class MazeGenerator():
 
     """
         The MazeGenerator class that defines the prpreties of a maze
-        and the functions used to generate it: 
+        and the functions used to generate it:
         - Next_cell()
         - valid()
         - where_to()
@@ -130,7 +130,7 @@ class MazeGenerator():
             return False
         return True
 
-    def where_to(self, cell: Cell) -> str | None:
+    def where_to(self, cell: Cell, seed: int | None) -> str | None:
 
         """
             Finds the possible unbroken wall (direction) to use it in
@@ -189,7 +189,10 @@ class MazeGenerator():
         next_cell.visited = True
         return next_cell
 
-    def generator(self, entry: tuple[int, int]) -> list[list[Cell]]:
+    def generator(
+            self, entry: tuple[int, int],
+            seed: int | None
+            ) -> list[list[Cell]]:
 
         """
             Generates a maze using the Depth First Search (dfs)
@@ -206,13 +209,14 @@ class MazeGenerator():
         cell = self.grid[i][j]
         cell.visited = True
         visited_cells = 1
+        random.seed(seed)
         if self.width < 11 or self.height < 9:
             size = self.height * self.width
         else:
             size = self.height * self.width - 18
 
         while visited_cells != size:
-            direction = self.where_to(cell)
+            direction = self.where_to(cell, seed)
             if direction is None:
                 track.pop()
                 if len(track) == 0:
