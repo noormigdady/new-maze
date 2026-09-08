@@ -25,6 +25,11 @@ clean:
 
 env:
 	python3 -m venv env
+
+build:
+	pip install --upgrade pip build
+	python3 -m build
+
 anal:
 	python3 amazing.py config.txt
 	python3 maze_analyzer.py maze.txt
