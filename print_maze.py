@@ -10,13 +10,7 @@ def print_maze(
         show_path: bool,
         colors: dict[str, str]
         ) -> None:
-    s, e = Exit
-    maze[s][e].top = True
-    maze[s][e].left = True
-    maze[s][e].bottom = True
-    maze[s][e].right = True
-    maze[s - 1][e].bottom = True
-    maze[s][e - 1].right = True
+
     """
         Prints the generated maze and path to the terminal screen
 
