@@ -141,8 +141,13 @@ def main() -> None:
 
     while True:
         try:
-            num = int(input("Choice? (1-4):"))
+            try:
+                num = int(input("Choice? (1-4):"))
+            except ValueError:
+                print("Invalid choice! retry with an int between 1 and 4")
+                continue
             if num not in [1, 2, 3, 4]:
+                print("Invalid choice! retry with an int between 1 and 4")
                 continue
             if num == 1:
                 os.system("clear")

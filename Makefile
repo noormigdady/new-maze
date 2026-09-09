@@ -1,4 +1,4 @@
-.PHONY: run lint lint-strict clean
+.PHONY: run lint lint-strict clean build
 
 run:
 	python3 amazing.py config.txt
