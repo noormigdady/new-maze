@@ -29,13 +29,35 @@ placed at the centre of the grid.
 
 ### Running the program
 
+- Creat the virtual environment:
 ```bash
-python3 amazing.py config.txt
+make env
 ```
 
-> **Note:** the project subject requires the entry point to be named `a_maze_ing.py`.
-> The current codebase still uses `amazing.py` — rename the file (or add a thin
-> `a_maze_ing.py` wrapper that imports and calls `main()`) before submission.
+- Activate the virtual environment:
+```bash
+source env/bin/activate
+```
+
+- To install the dependencies use the command:
+```bash
+make install
+```
+
+- To run the code:
+```bash
+make run
+```
+
+- To debug, run:
+```bash
+make debug
+```
+
+- To clean:
+```bash
+make clean
+```
 
 `config.txt` is the only argument, and it can be renamed to anything you like as long as
 you pass the new name on the command line. A default `config.txt` is provided at the
@@ -155,54 +177,25 @@ crashing.
 The reusable, importable core is the `generator.py` module — specifically the
 `MazeGenerator` class (and the `Cell` class it depends on). It has no dependency on the
 rest of the project (config parsing, terminal rendering, or the hex file writer), so it
-can be dropped into another project as-is:
+can be dropped into another project.
 
-```python
-from generator import MazeGenerator
+### AI usage
 
-gen = MazeGenerator(height=20, width=20)
-maze = gen.generator(entry=(0, 0))          # maze is a list[list[Cell]]
+- Debugging
+- Explaning the DFS and BFS
+- helped in writting the README
 
-cell = maze[0][0]
-print(cell.top, cell.right, cell.bottom, cell.left)   # inspect a cell's walls
-```
 
-To also get loops (a playable board) or a shortest-path solution, pair it with
-`imperfect.imperfecter()` and `bfs.shortest_path()`, which both operate on the same
-`list[list[Cell]]` structure returned by `MazeGenerator.generator()`.
-
-> This module is not yet packaged as an installable `mazegen-*` wheel/sdist as required
-> by the subject — that packaging step (with its own `pyproject.toml`/build metadata and
-> `LICENSE.md`) is still outstanding.
+## Team and project management
+- Jude (jaldeek): Generating the maze(dfs), visiualisation, Makefile
+- Noor (nibrahee): Solving the maze(bfs), maze_in_hex, documentation
+- Togather: configuration parsing
 
 ## Resources
 
 - [Maze generation algorithms overview](https://en.wikipedia.org/wiki/Maze_generation_algorithm) — background on recursive backtracker, Prim's, and Kruskal's algorithms.
 - [Breadth-first search](https://en.wikipedia.org/wiki/Breadth-first_search) — shortest-path guarantee on unweighted graphs.
 - Python standard library docs for `random`, `collections.deque`, and `typing`.
-
-### AI usage
-
-Claude (Anthropic) was used during development to:
-- Debug a systemic width/height axis-mismatch bug spanning `generator.py`,
-  `config_parser.py`, `lock_42.py`, `imperfect.py`, `print_maze.py`, and
-  `maze_in_hex.py`, verified against `maze_analyzer.py` output at each step rather than
-  taken on faith.
-- Diagnose a config-file parsing crash on blank/malformed lines and a dead `SEED` branch
-  caused by a case-sensitivity bug.
-- Help draft this README's algorithm explanations (DFS generation, BFS solving) and
-  reusability documentation.
-
-All AI-suggested fixes were tested against the actual codebase and cross-checked with
-`maze_analyzer.py` before being accepted — see the project's commit history/PR
-discussion for the specific before/after test output at each step.
-
-## Team and project management
-
-*(fill in for your team)*
-
-- **Roles:** —
-- **Planning:** —
-- **What worked well / what could be improved:** —
-- **Tools used:** Git, `maze_analyzer.py` (provided) for validation, Claude for
-  debugging assistance.
+- [Makefile](https://earthly.dev/blog/python-makefile/)
+- [DFS-Backtracking](https://aryanab.medium.com/maze-generation-recursive-backtracking-5981bc5cc766)
+- [Maze-generation](https://professor-l.github.io/mazes/)

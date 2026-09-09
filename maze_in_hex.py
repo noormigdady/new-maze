@@ -58,6 +58,6 @@ def maze_in_hex(maze: list[list[Cell]],
             f.write(seq)
             f.write('\n')
         f.write('\n')
-        f.write(f"{entry_cell[1]},{entry_cell[0]}\n")
-        f.write(f"{exit_cell[1]},{exit_cell[0]}\n")
+        f.write(f"{entry_cell[0]},{entry_cell[1]}\n")
+        f.write(f"{exit_cell[0]},{exit_cell[1]}\n")
         f.write(f"{path}\n")

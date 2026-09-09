@@ -103,7 +103,7 @@ def produce(config: dict[str, Any]) -> list[list[Cell]]:
     except Exception as e:
         message = str(e).split(",")
         print(message[0])
-        sys.exit(1)
+        sys.exit()
 
 
 def main() -> None:
@@ -137,7 +137,7 @@ def main() -> None:
         menu()
     except Exception as e:
         print(e)
-        sys.exit(1)
+        sys.exit()
 
     while True:
         try:

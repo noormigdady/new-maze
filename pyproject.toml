@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mazegen"
+version = "1.0.0"
+description = "A reusable maze generator with entry and exit points and a 42 pattern"
+authors = [{name = "nibrahee"}, {name = "jaldeek"}]
+
+[project.scripts]
+mazegen = "a_maze_ing:main"
+
+[tool.setuptools]
+py-modules = [ "a_maze_ing", "generator", "config_parser", "imperfect", "bfs", "lock_42", "maze_in_hex", "print_maze" ]
