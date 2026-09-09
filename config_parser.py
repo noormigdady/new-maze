@@ -37,7 +37,8 @@ def check_points(Entry: tuple[int, int],
         - Entry and Exit cells are inside the maze borders
         - Entry and Exit cells are not the same [The should be different]
 
-        Args -> Entry and Exit cells [Cell], Width and Height [int], file name [str]
+        Args -> Entry and Exit cells [Cell], Width and Height [int],
+        file name [str]
 
         Return -> None
     """
