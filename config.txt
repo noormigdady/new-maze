@@ -1,7 +1,7 @@
-width = 20
-height=25
+width=26
+height=20
 entry=0, 0
-exit=24, 19
+exit=14, 19
 output_file=maze.txt
-perfect=False
+perfect=True
 #seed=42

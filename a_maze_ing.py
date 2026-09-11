@@ -1,6 +1,7 @@
 import sys
 import random
 import os
+from shutil import get_terminal_size
 from generator import MazeGenerator, Cell
 from lock_42 import lock_42
 from print_maze import print_maze
@@ -106,6 +107,26 @@ def produce(config: dict[str, Any]) -> list[list[Cell]]:
         sys.exit()
 
 
+def check_maze_size(maze_height: int, maze_width: int) -> None:
+
+    """
+        Checks if the maze size fits with the terminal screen size
+
+        Args -> - maze height [int]
+                - maze width  [int]
+
+        Return -> None
+    """
+
+    terminal_height = get_terminal_size().lines
+    terminal_width = get_terminal_size().columns
+    terminal_size = terminal_height * terminal_width
+    maze_size = maze_height * maze_width
+
+    if maze_size > terminal_size:
+        raise ValueError("Maze size is too big! Try again :)")
+
+
 def main() -> None:
 
     """
@@ -129,6 +150,7 @@ def main() -> None:
         print(e)
     try:
         config = config_parser(args[1])
+        check_maze_size(config["HEIGHT"], config["WIDTH"])
         i, j = config["ENTRY"]
         x, y = config["EXIT"]
         maze = produce(config)
