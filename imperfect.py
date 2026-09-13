@@ -51,7 +51,6 @@ def remove_wall(
         maze: list[list[Cell]],
         height: int,
         width: int,
-        seed: int | None,
         cell: Cell
         ) -> None:
 
@@ -113,8 +112,7 @@ def remove_wall(
 def imperfecter(
         maze: list[list[Cell]],
         height: int,
-        width: int,
-        seed: int | None
+        width: int
         ) -> None:
 
     """
@@ -128,4 +126,4 @@ def imperfecter(
 
     for row in maze:
         for cell in row:
-            remove_wall(maze, height, width, seed, cell)
+            remove_wall(maze, height, width, cell)

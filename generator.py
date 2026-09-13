@@ -209,7 +209,6 @@ class MazeGenerator():
         cell = self.grid[i][j]
         cell.visited = True
         visited_cells = 1
-        random.seed(seed)
         if self.width < 11 or self.height < 9:
             size = self.height * self.width
         else:

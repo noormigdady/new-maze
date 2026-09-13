@@ -96,7 +96,7 @@ def produce(config: dict[str, Any]) -> list[list[Cell]]:
             raise Exception("ENTRY/EXIT cannot be in 42 logo")
         maze = grid.generator(config["ENTRY"], seed)
         if not config["PERFECT"]:
-            imperfecter(maze, height, width, seed)
+            imperfecter(maze, height, width)
         path = shortest_path(maze, maze[i][j], maze[x][y])
         maze_in_hex(maze, height, width, (i, j), (x, y),
                     path, config["OUTPUT_FILE"])
@@ -120,10 +120,8 @@ def check_maze_size(maze_height: int, maze_width: int) -> None:
 
     terminal_height = get_terminal_size().lines
     terminal_width = get_terminal_size().columns
-    terminal_size = terminal_height * terminal_width
-    maze_size = maze_height * maze_width
 
-    if maze_size > terminal_size:
+    if maze_height > terminal_height or maze_width > terminal_width:
         raise ValueError("Maze size is too big! Try again :)")
 
 
@@ -150,6 +148,7 @@ def main() -> None:
         print(e)
     try:
         config = config_parser(args[1])
+        random.seed(config["SEED"])
         check_maze_size(config["HEIGHT"], config["WIDTH"])
         i, j = config["ENTRY"]
         x, y = config["EXIT"]
