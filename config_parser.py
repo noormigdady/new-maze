@@ -77,7 +77,7 @@ def config_parser(file: str) -> dict[str, Any]:
     config: dict[str, Any] = {}
     with open(file, "r") as f:
         for line in f:
-            if line.startswith("#"):
+            if line.startswith("#") or line.startswith("\n"):
                 continue
             lst = line.split("=")
             if len(lst) != 2:
